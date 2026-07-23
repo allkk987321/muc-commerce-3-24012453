@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>内容审核 - 校园轻集市</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <div class="admin-logo">⚙️ 管理后台</div>
+    <nav class="admin-menu">
+      <a href="admin-dashboard.html" class="admin-menu-item">📊 数据概览</a>
+      <a href="admin-review.html" class="admin-menu-item active">📝 内容审核</a>
+      <a href="index.html" class="admin-menu-item">🏠 返回前台</a>
+    </nav>
+  </aside>
+  <main class="admin-main">
+    <div class="admin-topbar"><h1 style="font-size:24px;font-weight:700;">📝 内容审核</h1><span style="color:var(--text-tertiary);">审核校园信息内容</span></div>
+    <div class="filter-bar">
+      <span class="filter-label">状态：</span>
+      <button class="btn btn-sm btn-primary">全部</button>
+      <button class="btn btn-sm">待审核</button>
+      <button class="btn btn-sm">已通过</button>
+      <button class="btn btn-sm">已拒绝</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;" id="review-list"></div>
+  </main>
+</div>
+<script src="js/data.js"></script>
+<script>
+document.getElementById('review-list').innerHTML = items.map(item => `
+  <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+    <div style="flex:1;min-width:0;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+        <span class="type-tag type-${item.type === 'secondhand' ? 'secondhand' : item.type === 'lostfound' ? 'lostfound' : item.type === 'group' ? 'group' : 'errand'}">${getTypeLabel(item.type)}</span>
+        <span class="tag tag-success">已通过</span>
+      </div>
+      <div style="font-weight:600;">${item.title}</div>
+      <div style="font-size:12px;color:var(--text-tertiary);">发布者：${getUserById(item.publisherId).nickname} · ${item.createdAt}</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-shrink:0;">
+      <a href="${item.type === 'secondhand' ? 'item-detail.html' : item.type === 'lostfound' ? 'lost-detail.html' : item.type === 'group' ? 'group-detail.html' : 'task-detail.html'}?id=${item.id}" class="btn btn-ghost btn-sm">查看</a>
+      <button class="btn btn-danger btn-sm" onclick="this.closest('.card').style.opacity='0.4';alert('已标记违规')">违规</button>
+    </div>
+  </div>
+`).join('');
+</script>
+</body>
+</html>

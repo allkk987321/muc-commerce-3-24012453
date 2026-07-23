@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>今日集市 - 校园轻集市</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="page-wrapper">
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="home.html" class="navbar-brand">
+        <div class="brand-icon">🏪</div>
+        校园轻集市
+      </a>
+      <div class="search-box">
+        <input type="text" placeholder="搜索你需要的校园信息...">
+        <button>🔍</button>
+      </div>
+      <div class="navbar-nav">
+        <a href="home.html" class="nav-link active">🏠 首页</a>
+        <a href="category.html" class="nav-link">📋 浏览集市</a>
+        <a href="publish.html" class="nav-link">✏️ 发布信息</a>
+        <div class="navbar-actions">
+          <a href="messages.html" class="btn btn-ghost btn-icon" style="position:relative;" title="消息">
+            💬<span style="position:absolute;top:2px;right:2px;width:8px;height:8px;background:var(--danger);border-radius:50%;"></span>
+          </a>
+          <a href="profile.html" class="btn btn-ghost btn-icon" title="个人中心">👤</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 主体 -->
+  <div class="main-content">
+    <div class="container">
+      <!-- 欢迎横幅 -->
+      <div style="background:linear-gradient(135deg, #4A90D9, #6BA5E7);border-radius:var(--radius-lg);padding:28px 32px;color:white;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <h1 style="font-size:24px;font-weight:700;margin-bottom:4px;">👋 欢迎回来，小明同学</h1>
+          <p style="opacity:0.85;">计算机科学与技术学院 · 南校区 · 信用分 95</p>
+        </div>
+        <div style="display:flex;gap:12px;">
+          <div style="text-align:center;background:rgba(255,255,255,0.2);border-radius:var(--radius-md);padding:12px 20px;">
+            <div style="font-size:24px;font-weight:700;">4</div>
+            <div style="font-size:12px;opacity:0.8;">我的收藏</div>
+          </div>
+          <div style="text-align:center;background:rgba(255,255,255,0.2);border-radius:var(--radius-md);padding:12px 20px;">
+            <div style="font-size:24px;font-weight:700;">3</div>
+            <div style="font-size:12px;opacity:0.8;">未读消息</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 安全提醒 -->
+      <div class="safety-notice">
+        <div class="safety-icon">🛡️</div>
+        <div class="safety-text">
+          <strong>交易安全提醒：</strong>请尽量选择校内公共区域进行线下交易。贵重物品建议当面验机，防范异常低价和提前转账要求。
+          <a href="#" style="color:var(--primary);margin-left:8px;">了解更多 →</a>
+        </div>
+      </div>
+
+      <!-- 快捷入口 -->
+      <div class="type-select-grid" style="margin-bottom:24px;">
+        <a href="category.html?type=secondhand" class="type-select-card">
+          <div class="type-icon">🛒</div>
+          <div class="type-name">二手交易</div>
+          <div style="font-size:12px;color:var(--text-tertiary);">闲置物品流转</div>
+        </a>
+        <a href="category.html?type=lostfound" class="type-select-card">
+          <div class="type-icon">🔍</div>
+          <div class="type-name">失物招领</div>
+          <div style="font-size:12px;color:var(--text-tertiary);">物品遗失互助</div>
+        </a>
+        <a href="category.html?type=group" class="type-select-card">
+          <div class="type-icon">🤝</div>
+          <div class="type-name">拼单搭子</div>
+          <div style="font-size:12px;color:var(--text-tertiary);">一起拼一起学</div>
+        </a>
+        <a href="category.html?type=errand" class="type-select-card">
+          <div class="type-icon">🏃</div>
+          <div class="type-name">跑腿委托</div>
+          <div style="font-size:12px;color:var(--text-tertiary);">临时任务协助</div>
+        </a>
+      </div>
+
+      <!-- 最新发布 -->
+      <div class="card" style="margin-bottom:24px;">
+        <div class="card-header">
+          <span class="card-title">📌 最新发布</span>
+          <a href="category.html" class="btn btn-ghost btn-sm">查看全部 →</a>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:12px;" id="latest-items"></div>
+      </div>
+
+      <!-- 热门信息 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🔥 热门关注</span>
+          <span class="text-sm text-muted">按浏览量排序</span>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:12px;" id="hot-items"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script>
+// 渲染信息卡片
+function renderItemCard(item) {
+  const typeLabels = { secondhand:'🛒 二手', lostfound:'🔍 失物招领', group:'🤝 拼单', errand:'🏃 跑腿' };
+  const typeClasses = { secondhand:'type-secondhand', lostfound:'type-lostfound', group:'type-group', errand:'type-errand' };
+  const detailPages = { secondhand:'item-detail.html', lostfound:'lost-detail.html', group:'group-detail.html', errand:'task-detail.html' };
+
+  let extra = '';
+  if (item.type === 'secondhand') extra = `<span class="item-card-price">¥${item.price}</span>`;
+  else if (item.type === 'group') extra = `<span style="font-weight:600;color:var(--primary);">👥 ${item.currentCount}/${item.targetCount}人</span>`;
+  else if (item.type === 'errand') extra = `<span style="font-weight:600;color:var(--secondary);">💰 ¥${item.reward}</span>`;
+
+  return `
+    <a href="${detailPages[item.type]}?id=${item.id}" class="item-card">
+      <div class="item-card-image">${typeLabels[item.type].split(' ')[0]}</div>
+      <div class="item-card-body">
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <span class="type-tag ${typeClasses[item.type]}">${typeLabels[item.type]}</span>
+            <span class="tag tag-gray">${getStatusLabel(item.status)}</span>
+          </div>
+          <div class="item-card-title">${item.title}</div>
+          <div class="item-card-desc">${item.description}</div>
+        </div>
+        <div class="item-card-meta">
+          <span>📍 ${item.campus} · ${item.location}</span>
+          <span>👀 ${item.viewCount} 浏览</span>
+          <span>⭐ ${item.favoriteCount} 收藏</span>
+          <span>🕐 ${formatTime(item.createdAt)}</span>
+        </div>
+      </div>
+      ${extra ? `<div style="display:flex;align-items:center;flex-shrink:0;">${extra}</div>` : ''}
+    </a>
+  `;
+}
+
+// 最新发布（按时间排序取前4条）
+const latest = [...items].sort((a,b) => new Date(b.createdAt.replace(' ','T')) - new Date(a.createdAt.replace(' ','T'))).slice(0,4);
+document.getElementById('latest-items').innerHTML = latest.map(renderItemCard).join('');
+
+// 热门（按浏览量排序取前4条）
+const hot = [...items].sort((a,b) => b.viewCount - a.viewCount).slice(0,4);
+document.getElementById('hot-items').innerHTML = hot.map(renderItemCard).join('');
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>消息中心 - 校园轻集市</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+<div class="page-wrapper">
+  <nav class="navbar"><div class="navbar-inner">
+    <a href="home.html" class="navbar-brand"><div class="brand-icon">🏪</div>校园轻集市</a>
+    <div class="navbar-nav">
+      <a href="home.html" class="nav-link">🏠 首页</a><a href="category.html" class="nav-link">📋 浏览集市</a><a href="publish.html" class="nav-link">✏️ 发布信息</a>
+      <div class="navbar-actions"><a href="messages.html" class="btn btn-ghost btn-icon active" title="消息">💬</a><a href="profile.html" class="btn btn-ghost btn-icon" title="个人中心">👤</a></div>
+    </div>
+  </div></nav>
+  <div class="main-content"><div class="container">
+    <div class="page-header"><h1 class="page-title">💬 消息中心</h1><p class="page-subtitle">查看和回复与你相关的消息沟通</p></div>
+    <div class="card"><div class="card-body" id="conv-list"></div></div>
+  </div></div>
+</div>
+<script src="js/data.js"></script>
+<script>
+const convs = getConversationsByUser('u1');
+document.getElementById('conv-list').innerHTML = convs.length === 0
+  ? '<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">暂无消息</div></div>'
+  : convs.map(c => {
+      const otherId = c.buyerId === 'u1' ? c.publisherId : c.buyerId;
+      const other = getUserById(otherId);
+      const item = getItemById(c.itemId);
+      return `<a href="chat.html?id=${c.itemId}" class="conversation-item ${c.unreadCount > 0 ? 'unread' : ''}">
+        <div class="avatar">${other.nickname[0]}</div>
+        <div class="conversation-body">
+          <div class="conversation-name">${other.nickname}</div>
+          <div class="conversation-preview">${c.lastMessage}</div>
+          <div style="font-size:12px;color:var(--text-tertiary);">关于：${item.title}</div>
+        </div>
+        <div class="conversation-meta">
+          <div class="conversation-time">${formatTime(c.updatedAt)}</div>
+          ${c.unreadCount > 0 ? `<div class="unread-badge">${c.unreadCount}</div>` : ''}
+        </div>
+      </a>`;
+    }).join('');
+</script>
+</body>
+</html>

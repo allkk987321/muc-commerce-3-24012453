@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>个人中心 - 校园轻集市</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+<div class="page-wrapper">
+  <nav class="navbar"><div class="navbar-inner">
+    <a href="home.html" class="navbar-brand"><div class="brand-icon">🏪</div>校园轻集市</a>
+    <div class="navbar-nav">
+      <a href="home.html" class="nav-link">🏠 首页</a><a href="category.html" class="nav-link">📋 浏览集市</a><a href="publish.html" class="nav-link">✏️ 发布信息</a>
+      <div class="navbar-actions"><a href="messages.html" class="btn btn-ghost btn-icon" title="消息">💬</a><a href="profile.html" class="btn btn-ghost btn-icon active" title="个人中心">👤</a></div>
+    </div>
+  </div></nav>
+  <div class="main-content"><div class="container">
+    <div class="profile-header">
+      <div class="avatar avatar-xl">小</div>
+      <div class="profile-info">
+        <h2>小明同学</h2>
+        <div class="profile-meta">计算机科学与技术学院 · 南校区 · 本科生</div>
+        <div style="display:flex;gap:16px;margin-top:12px;">
+          <div class="stat-card" style="padding:12px 20px;min-width:80px;">
+            <div class="stat-number" style="font-size:20px;">95</div>
+            <div class="stat-label">信用分</div>
+          </div>
+          <div class="stat-card" style="padding:12px 20px;min-width:80px;">
+            <div class="stat-number" style="font-size:20px;color:var(--secondary);">3</div>
+            <div class="stat-label">我的发布</div>
+          </div>
+          <div class="stat-card" style="padding:12px 20px;min-width:80px;">
+            <div class="stat-number" style="font-size:20px;color:var(--success);">4</div>
+            <div class="stat-label">我的收藏</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-tabs">
+      <a href="my-posts.html" class="profile-tab">📋 我的发布</a>
+      <a href="favorites.html" class="profile-tab">⭐ 我的收藏</a>
+      <a href="settings.html" class="profile-tab">⚙️ 账号设置</a>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="card">
+        <div class="card-header"><span class="card-title">📋 最近发布</span><a href="my-posts.html" class="btn btn-ghost btn-sm">查看全部 →</a></div>
+        <div class="card-body" id="recent-posts"></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title">⭐ 最近收藏</span><a href="favorites.html" class="btn btn-ghost btn-sm">查看全部 →</a></div>
+        <div class="card-body" id="recent-favs"></div>
+      </div>
+    </div>
+  </div></div>
+</div>
+<script src="js/data.js"></script>
+<script>
+const posts = getUserPosts('u1').slice(0,3);
+document.getElementById('recent-posts').innerHTML = posts.length ? posts.map(p =>
+  `<div style="padding:8px 0;border-bottom:1px solid var(--border-light);">
+    <div style="font-weight:500;">${p.title}</div>
+    <div style="font-size:12px;color:var(--text-tertiary);">${getTypeLabel(p.type)} · ${getStatusLabel(p.status)} · ${formatTime(p.createdAt)}</div>
+  </div>`
+).join('') : '<div class="text-muted text-sm">暂无发布</div>';
+
+const favs = getUserFavorites('u1').slice(0,3);
+document.getElementById('recent-favs').innerHTML = favs.length ? favs.map(f =>
+  `<div style="padding:8px 0;border-bottom:1px solid var(--border-light);">
+    <div style="font-weight:500;">${f.title}</div>
+    <div style="font-size:12px;color:var(--text-tertiary);">${getTypeLabel(f.type)} · ${formatTime(f.createdAt)}</div>
+  </div>`
+).join('') : '<div class="text-muted text-sm">暂无收藏</div>';
+</script>
+</body>
+</html>

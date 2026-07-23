@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>管理端 - 校园轻集市</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <div class="admin-logo">⚙️ 管理后台</div>
+    <nav class="admin-menu">
+      <a href="admin-dashboard.html" class="admin-menu-item active">📊 数据概览</a>
+      <a href="admin-review.html" class="admin-menu-item">📝 内容审核</a>
+      <a href="index.html" class="admin-menu-item">🏠 返回前台</a>
+    </nav>
+  </aside>
+  <main class="admin-main">
+    <div class="admin-topbar"><h1 style="font-size:24px;font-weight:700;">📊 数据概览</h1><span style="color:var(--text-tertiary);">教学演示用管理端</span></div>
+    <div class="admin-stats">
+      <div class="stat-card"><div class="stat-number">15</div><div class="stat-label">总信息数</div></div>
+      <div class="stat-card"><div class="stat-number" style="color:var(--success);">13</div><div class="stat-label">进行中</div></div>
+      <div class="stat-card"><div class="stat-number" style="color:var(--warning);">1</div><div class="stat-label">已完成</div></div>
+      <div class="stat-card"><div class="stat-number" style="color:var(--danger);">0</div><div class="stat-label">违规</div></div>
+    </div>
+    <div class="three-col">
+      <div class="card"><div class="card-title" style="margin-bottom:12px;">📊 信息类型占比</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div><span>🛒 二手交易</span><div style="background:var(--border-light);border-radius:var(--radius-full);height:8px;margin-top:4px;"><div style="background:var(--secondary);height:100%;width:33%;border-radius:var(--radius-full);"></div></div><span style="font-size:12px;color:var(--text-tertiary);">5条 (33%)</span></div>
+          <div><span>🔍 失物招领</span><div style="background:var(--border-light);border-radius:var(--radius-full);height:8px;margin-top:4px;"><div style="background:#1ABC9C;height:100%;width:20%;border-radius:var(--radius-full);"></div></div><span style="font-size:12px;color:var(--text-tertiary);">3条 (20%)</span></div>
+          <div><span>🤝 拼单搭子</span><div style="background:var(--border-light);border-radius:var(--radius-full);height:8px;margin-top:4px;"><div style="background:#7C5CFC;height:100%;width:20%;border-radius:var(--radius-full);"></div></div><span style="font-size:12px;color:var(--text-tertiary);">3条 (20%)</span></div>
+          <div><span>🏃 跑腿委托</span><div style="background:var(--border-light);border-radius:var(--radius-full);height:8px;margin-top:4px;"><div style="background:var(--secondary);height:100%;width:27%;border-radius:var(--radius-full);"></div></div><span style="font-size:12px;color:var(--text-tertiary);">4条 (27%)</span></div>
+        </div>
+      </div>
+      <div class="card"><div class="card-title" style="margin-bottom:12px;">🏫 校区分布</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div><span>南校区</span><div style="background:var(--border-light);border-radius:var(--radius-full);height:8px;margin-top:4px;"><div style="background:var(--primary);height:100%;width:40%;border-radius:var(--radius-full);"></div></div><span style="font-size:12px;color:var(--text-tertiary);">6条</span></div>
+          <div><span>北校区</span><div style="background:var(--border-light);border-radius:var(--radius-full);height:8px;margin-top:4px;"><div style="background:var(--primary-light);height:100%;width:27%;border-radius:var(--radius-full);"></div></div><span style="font-size:12px;color:var(--text-tertiary);">4条</span></div>
+          <div><span>东校区</span><div style="background:var(--border-light);border-radius:var(--radius-full);height:8px;margin-top:4px;"><div style="background:#1ABC9C;height:100%;width:20%;border-radius:var(--radius-full);"></div></div><span style="font-size:12px;color:var(--text-tertiary);">3条</span></div>
+          <div><span>西校区</span><div style="background:var(--border-light);border-radius:var(--radius-full);height:8px;margin-top:4px;"><div style="background:#7C5CFC;height:100%;width:13%;border-radius:var(--radius-full);"></div></div><span style="font-size:12px;color:var(--text-tertiary);">2条</span></div>
+        </div>
+      </div>
+      <div class="card"><div class="card-title" style="margin-bottom:12px;">📈 状态统计</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div><span>进行中</span><div style="background:var(--border-light);border-radius:var(--radius-full);height:8px;margin-top:4px;"><div style="background:var(--primary);height:100%;width:87%;border-radius:var(--radius-full);"></div></div><span style="font-size:12px;color:var(--text-tertiary);">13条</span></div>
+          <div><span>已完成/已解决</span><div style="background:var(--border-light);border-radius:var(--radius-full);height:8px;margin-top:4px;"><div style="background:var(--success);height:100%;width:7%;border-radius:var(--radius-full);"></div></div><span style="font-size:12px;color:var(--text-tertiary);">1条</span></div>
+          <div><span>已关闭</span><div style="background:var(--border-light);border-radius:var(--radius-full);height:8px;margin-top:4px;"><div style="background:var(--danger);height:100%;width:0%;border-radius:var(--radius-full);"></div></div><span style="font-size:12px;color:var(--text-tertiary);">0条</span></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

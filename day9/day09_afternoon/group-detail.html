@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>拼单详情 - 校园轻集市</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+<div class="page-wrapper">
+  <nav class="navbar"><div class="navbar-inner">
+    <a href="home.html" class="navbar-brand"><div class="brand-icon">🏪</div>校园轻集市</a>
+    <div class="navbar-nav">
+      <a href="home.html" class="nav-link">🏠 首页</a><a href="category.html" class="nav-link">📋 浏览集市</a><a href="publish.html" class="nav-link">✏️ 发布信息</a>
+      <div class="navbar-actions"><a href="messages.html" class="btn btn-ghost btn-icon" title="消息">💬</a><a href="profile.html" class="btn btn-ghost btn-icon" title="个人中心">👤</a></div>
+    </div>
+  </div></nav>
+  <div class="main-content"><div class="container"><div id="detail-content"></div></div></div>
+</div>
+<script src="js/data.js"></script>
+<script>
+const params = new URLSearchParams(location.search);
+const item = getItemById(parseInt(params.get('id'))) || items.find(i => i.type === 'group');
+const publisher = getUserById(item.publisherId);
+const favIds = getFavoriteItemIds('u1');
+const isFav = favIds.includes(item.id);
+const progress = Math.round((item.currentCount / item.targetCount) * 100);
+
+document.getElementById('detail-content').innerHTML = `
+  <div style="margin-bottom:16px;"><a href="category.html?type=group" style="color:var(--text-tertiary);">← 返回拼单搭子列表</a></div>
+  <div class="detail-header">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span class="type-tag type-group">🤝 拼单搭子</span>
+      <span class="tag tag-gray">${getStatusLabel(item.status)}</span>
+    </div>
+    <h1 class="detail-title">${item.title}</h1>
+    <div class="detail-meta">
+      <span>📍 ${item.campus} · ${item.location}</span>
+      <span>👀 ${item.viewCount} 浏览</span>
+      <span>⭐ ${item.favoriteCount} 收藏</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="detail-body">
+      <h3 style="margin-bottom:12px;">活动详情</h3>
+      <p style="line-height:1.8;color:var(--text-secondary);">${item.description}</p>
+      <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+        ${(item.tags || []).map(t => '<span class="tag tag-primary">'+t+'</span>').join('')}
+      </div>
+    </div>
+    <div class="detail-sidebar">
+      <div class="sidebar-card" style="text-align:center;">
+        <div style="font-size:48px;margin-bottom:8px;">👥</div>
+        <div style="font-size:32px;font-weight:700;color:var(--primary);">${item.currentCount}<span style="font-size:18px;color:var(--text-tertiary);"> / ${item.targetCount}</span></div>
+        <div style="color:var(--text-tertiary);font-size:13px;margin-bottom:12px;">当前人数 / 目标人数</div>
+        <div style="background:var(--border-light);border-radius:var(--radius-full);height:8px;margin-bottom:12px;overflow:hidden;">
+          <div style="background:linear-gradient(90deg,var(--primary),var(--primary-light));height:100%;width:${progress}%;border-radius:var(--radius-full);transition:width 0.3s;"></div>
+        </div>
+        <div style="font-size:13px;color:var(--text-secondary);margin-bottom:4px;">⏰ 截止时间：${item.deadline}</div>
+        <div style="font-size:13px;color:var(--text-tertiary);margin-bottom:16px;">剩余 ${Math.max(0, item.targetCount - item.currentCount)} 个名额</div>
+        <a href="chat.html?id=${item.id}" class="btn btn-primary btn-block btn-lg" style="margin-bottom:8px;">💬 联系发起者</a>
+        <button class="btn ${isFav ? 'btn-warning' : 'btn-outline'} btn-block" onclick="toggleFav()" id="fav-btn">
+          ${isFav ? '⭐ 已收藏' : '☆ 收藏'}
+        </button>
+      </div>
+      <div class="sidebar-card">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="avatar">${publisher.nickname[0]}</div>
+          <div>
+            <div style="font-weight:600;">${publisher.nickname}</div>
+            <div style="font-size:12px;color:var(--text-tertiary);">${publisher.college} · 信用分 ${publisher.creditScore}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+function toggleFav() {
+  const btn = document.getElementById('fav-btn');
+  if (btn.classList.contains('btn-warning')) {
+    btn.className = 'btn btn-outline btn-block'; btn.textContent = '☆ 收藏';
+  } else {
+    btn.className = 'btn btn-warning btn-block'; btn.textContent = '⭐ 已收藏';
+  }
+}
+</script>
+</body>
+</html>

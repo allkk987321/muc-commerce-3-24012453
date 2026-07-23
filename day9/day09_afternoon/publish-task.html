@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>发布跑腿委托 - 校园轻集市</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+<div class="page-wrapper">
+  <nav class="navbar"><div class="navbar-inner">
+    <a href="home.html" class="navbar-brand"><div class="brand-icon">🏪</div>校园轻集市</a>
+    <div class="navbar-nav">
+      <a href="home.html" class="nav-link">🏠 首页</a><a href="category.html" class="nav-link">📋 浏览集市</a><a href="publish.html" class="nav-link active">✏️ 发布信息</a>
+      <div class="navbar-actions"><a href="messages.html" class="btn btn-ghost btn-icon" title="消息">💬</a><a href="profile.html" class="btn btn-ghost btn-icon" title="个人中心">👤</a></div>
+    </div>
+  </div></nav>
+  <div class="main-content"><div class="container">
+    <div class="page-header"><h1 class="page-title">🏃 发布跑腿委托</h1><p class="page-subtitle">发布临时任务，找人帮忙跑腿</p></div>
+    <div class="publish-layout">
+      <div class="publish-form">
+        <form onsubmit="event.preventDefault();alert('发布成功！');location.href='category.html?type=errand'">
+          <div class="form-group"><label class="form-label">任务标题 <span class="required">*</span></label><input type="text" class="form-input" placeholder="例如：代取快递 南门菜鸟驿站" required></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">酬劳（元）<span class="required">*</span></label><input type="number" class="form-input" placeholder="8" min="0" required></div>
+            <div class="form-group"><label class="form-label">期望完成时间 <span class="required">*</span></label><input type="text" class="form-input" placeholder="例如：今天17:00前" required></div>
+          </div>
+          <div class="form-group"><label class="form-label">任务内容 <span class="required">*</span></label><textarea class="form-textarea" placeholder="详细描述需要完成的任务..." required></textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">校区 <span class="required">*</span></label><select class="form-select"><option>南校区</option><option>北校区</option><option>东校区</option><option>西校区</option></select></div>
+            <div class="form-group"><label class="form-label">任务地点</label><input type="text" class="form-input" placeholder="例如：南门菜鸟驿站"></div>
+          </div>
+          <div class="form-group"><label class="form-label">标签</label><input type="text" class="form-input" placeholder="用逗号分隔，例如：快递,代取"></div>
+          <div class="form-group" style="margin-top:24px;"><button type="submit" class="btn btn-primary btn-lg btn-block">发布任务</button></div>
+          <p style="text-align:center;margin-top:12px;"><a href="publish.html">← 选择其他类型</a></p>
+        </form>
+      </div>
+      <div class="publish-tips"><h4>💡 发布贴士</h4><ul><li>任务描述尽量详细具体</li><li>酬劳合理，体现诚意</li><li>标注明确的完成时限</li><li>任务完成后及时更新状态</li><li>通过平台消息与接单者沟通</li></ul></div>
+    </div>
+  </div></div>
+</div>
+</body>
+</html>

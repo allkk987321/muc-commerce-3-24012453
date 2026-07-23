@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>发布失物招领 - 校园轻集市</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+<div class="page-wrapper">
+  <nav class="navbar"><div class="navbar-inner">
+    <a href="home.html" class="navbar-brand"><div class="brand-icon">🏪</div>校园轻集市</a>
+    <div class="navbar-nav">
+      <a href="home.html" class="nav-link">🏠 首页</a><a href="category.html" class="nav-link">📋 浏览集市</a><a href="publish.html" class="nav-link active">✏️ 发布信息</a>
+      <div class="navbar-actions"><a href="messages.html" class="btn btn-ghost btn-icon" title="消息">💬</a><a href="profile.html" class="btn btn-ghost btn-icon" title="个人中心">👤</a></div>
+    </div>
+  </div></nav>
+  <div class="main-content"><div class="container">
+    <div class="page-header"><h1 class="page-title">🔍 发布失物招领</h1><p class="page-subtitle">发布丢失或拾获物品信息，互相帮助</p></div>
+    <div class="publish-layout">
+      <div class="publish-form">
+        <form onsubmit="event.preventDefault();alert('发布成功！');location.href='category.html?type=lostfound'">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">类型 <span class="required">*</span></label><select class="form-select" required><option>丢失物品</option><option>拾获物品</option></select></div>
+            <div class="form-group"><label class="form-label">发生时间 <span class="required">*</span></label><input type="datetime-local" class="form-input" required></div>
+          </div>
+          <div class="form-group"><label class="form-label">物品标题 <span class="required">*</span></label><input type="text" class="form-input" placeholder="例如：丢失校园卡一张" required></div>
+          <div class="form-group"><label class="form-label">物品特征 <span class="required">*</span></label><textarea class="form-textarea" placeholder="描述物品的颜色、特征、标记等..." required></textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">校区 <span class="required">*</span></label><select class="form-select"><option>南校区</option><option>北校区</option><option>东校区</option><option>西校区</option></select></div>
+            <div class="form-group"><label class="form-label">具体地点</label><input type="text" class="form-input" placeholder="例如：操场跑道附近"></div>
+          </div>
+          <div class="form-group"><label class="form-label">详细描述</label><textarea class="form-textarea" placeholder="补充描述丢失或拾获的具体情况..."></textarea></div>
+          <div class="form-group"><label class="form-label">标签</label><input type="text" class="form-input" placeholder="用逗号分隔，例如：校园卡,蓝色卡套"></div>
+          <div class="form-group" style="margin-top:24px;"><button type="submit" class="btn btn-primary btn-lg btn-block">发布信息</button></div>
+          <p style="text-align:center;margin-top:12px;"><a href="publish.html">← 选择其他类型</a></p>
+        </form>
+      </div>
+      <div class="publish-tips"><h4>💡 发布贴士</h4><ul><li>尽可能详细描述物品特征</li><li>标注丢失/拾获的具体时间地点</li><li>失物招领不含金钱交易</li><li>物品找回后记得更新状态</li><li>贵重物品建议留下联系方式</li></ul></div>
+    </div>
+  </div></div>
+</div>
+</body>
+</html>

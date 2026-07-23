@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>聊天 - 校园轻集市</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+<div class="page-wrapper">
+  <div class="main-content"><div class="container">
+    <div style="margin-bottom:16px;"><a href="messages.html" style="color:var(--text-tertiary);">← 返回消息列表</a></div>
+    <div id="chat-container"></div>
+  </div></div>
+</div>
+<script src="js/data.js"></script>
+<script>
+const params = new URLSearchParams(location.search);
+const itemId = parseInt(params.get('id')) || 2;
+const conv = conversations.find(c => c.itemId === itemId) || conversations[0];
+const otherId = conv.buyerId === 'u1' ? conv.publisherId : conv.buyerId;
+const other = getUserById(otherId);
+const item = getItemById(itemId);
+const msgs = getMessagesByConversation(conv.id);
+
+function renderChat() {
+  document.getElementById('chat-container').innerHTML = `
+    <div class="chat-container">
+      <div class="chat-header">
+        <a href="messages.html" style="color:var(--text-tertiary);text-decoration:none;">←</a>
+        <div class="avatar">${other.nickname[0]}</div>
+        <div style="flex:1;"><div style="font-weight:600;">${other.nickname}</div><div style="font-size:12px;color:var(--text-tertiary);">关于：${item.title}</div></div>
+      </div>
+      <div class="chat-messages" id="msg-list">
+        ${msgs.map(m => {
+          const isSent = m.senderId === 'u1';
+          return `<div class="message-bubble ${isSent ? 'message-sent' : 'message-received'}">
+            <div>${m.content}</div>
+            <div class="message-time" style="${isSent ? 'text-align:right' : ''}">${m.createdAt}</div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="chat-input-area">
+        <input type="text" id="msgInput" placeholder="输入消息...">
+        <button class="btn btn-primary" onclick="sendMsg()">发送</button>
+      </div>
+    </div>`;
+}
+
+function sendMsg() {
+  const input = document.getElementById('msgInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const now = new Date().toLocaleString('zh-CN');
+  const msgList = document.getElementById('msg-list');
+  msgList.innerHTML += `<div class="message-bubble message-sent"><div>${text}</div><div class="message-time" style="text-align:right;">${now}</div></div>`;
+  input.value = '';
+  // 模拟回复
+  setTimeout(() => {
+    const replies = ['好的，我看到了', '嗯嗯，可以的', '具体我们私聊吧~', '没问题！', '稍等我看一下'];
+    const reply = replies[Math.floor(Math.random() * replies.length)];
+    msgList.innerHTML += `<div class="message-bubble message-received"><div>${reply}</div><div class="message-time">${new Date().toLocaleString('zh-CN')}</div></div>`;
+    msgList.scrollTop = msgList.scrollHeight;
+  }, 800);
+  setTimeout(() => msgList.scrollTop = msgList.scrollHeight, 100);
+}
+
+renderChat();
+</script>
+</body>
+</html>

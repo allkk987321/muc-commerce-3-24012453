@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>创建本地身份 - 校园轻集市</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="auth-page">
+  <div class="auth-card">
+    <div style="text-align:center;font-size:40px;margin-bottom:8px;">👤</div>
+    <div class="auth-title">创建本地身份</div>
+    <div class="auth-subtitle">填写基本信息，即可开始使用校园轻集市</div>
+
+    <form onsubmit="event.preventDefault();location.href='home.html'">
+      <div class="form-group">
+        <label class="form-label">昵称 <span class="required">*</span></label>
+        <input type="text" class="form-input" placeholder="给自己起个好听的名字" required value="小明同学">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">学院 <span class="required">*</span></label>
+          <select class="form-select">
+            <option>计算机科学与技术学院</option>
+            <option>人文学院</option>
+            <option>法学院</option>
+            <option>艺术学院</option>
+            <option>体育学院</option>
+            <option>物理学院</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">校区 <span class="required">*</span></label>
+          <select class="form-select">
+            <option>南校区</option>
+            <option>北校区</option>
+            <option>东校区</option>
+            <option>西校区</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">身份角色 <span class="required">*</span></label>
+        <select class="form-select">
+          <option>本科生</option>
+          <option>研究生</option>
+          <option>博士生</option>
+          <option>教职工</option>
+        </select>
+      </div>
+      <div class="form-group mt-lg">
+        <button type="submit" class="btn btn-primary btn-block btn-lg">开始使用 →</button>
+      </div>
+    </form>
+
+    <div class="auth-footer">
+      <p>本地身份仅用于教学演示，不需要真实认证</p>
+      <p style="margin-top:4px;"><a href="index.html">← 返回入口</a></p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

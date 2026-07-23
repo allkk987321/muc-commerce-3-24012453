@@ -1,0 +1,19 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>账号设置｜校园轻集市</title><script src="https://cdn.tailwindcss.com"></script><script src="https://unpkg.com/vue@3/dist/vue.global.js"></script><link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css"><script src="https://unpkg.com/element-plus"></script><script src="https://unpkg.com/@element-plus/icons-vue"></script><link rel="stylesheet" href="assets/common.css"></head><body class="cm-body"><div id="app">
+<header class="cm-nav sticky top-0 z-50">
+  <div class="cm-shell h-16 flex items-center justify-between">
+    <a href="home.html" class="flex items-center gap-3">
+      <div class="cm-logo w-9 h-9 rounded-2xl flex items-center justify-center text-white font-black">集</div>
+      <div><div class="font-black text-lg leading-tight">校园轻集市</div><div class="text-xs text-slate-500 -mt-1">Campus Market</div></div>
+    </a>
+    <nav class="cm-nav-menu flex items-center gap-7 text-sm text-slate-600">
+      <a href="home.html" class="hover:text-teal-700">首页</a><a href="category.html" class="hover:text-teal-700">分类浏览</a><a href="publish.html" class="hover:text-teal-700">发布信息</a><a href="messages.html" class="hover:text-teal-700">消息</a><a href="profile.html" class="hover:text-teal-700">个人中心</a><a href="admin-dashboard.html" class="hover:text-teal-700">管理端</a>
+    </nav>
+    <div class="flex items-center gap-3"><a href="publish.html"><el-button type="primary" round>免费发布</el-button></a><a href="login.html"><el-avatar size="small" src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?auto=format&fit=crop&w=120&q=80"></el-avatar></a></div>
+  </div>
+</header><main class="cm-shell py-8"><section class="cm-form-grid"><div class="cm-card p-6"><h1 class="text-2xl font-black mb-5">账号设置</h1><el-tabs><el-tab-pane label="基本资料"><el-form label-position="top"><el-form-item label="头像"><div class="flex items-center gap-4"><el-avatar :size="72" src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?auto=format&fit=crop&w=120&q=80"></el-avatar><el-button>更换头像</el-button></div></el-form-item><el-form-item label="昵称"><el-input value="林同学"></el-input></el-form-item><el-form-item label="学院"><el-input value="计算机学院"></el-input></el-form-item><el-form-item label="常用校区"><el-select class="w-full"><el-option label="南校区" value="south"></el-option><el-option label="东校区" value="east"></el-option></el-select></el-form-item><el-button type="primary">保存修改</el-button></el-form></el-tab-pane><el-tab-pane label="隐私安全"><el-switch active-text="允许通过站内消息联系" :value="true"></el-switch><br><br><el-switch active-text="展示信用状态" :value="true"></el-switch></el-tab-pane></el-tabs></div><aside class="cm-card p-6 h-fit"><h3 class="font-black mb-3">设置建议</h3><p class="text-sm text-slate-600 leading-7">建议完善学院和校区信息，方便同校同学判断交易距离。手机号、取件码等敏感信息请仅在聊天中按需提供。</p></aside></section></main></div>
+<script>
+  const { createApp } = Vue;
+  const app = createApp({});
+  app.use(ElementPlus);
+  app.mount('#app');
+</script></body></html>

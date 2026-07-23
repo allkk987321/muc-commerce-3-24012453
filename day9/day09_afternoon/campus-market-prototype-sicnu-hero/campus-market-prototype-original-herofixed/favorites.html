@@ -1,0 +1,19 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>我的收藏｜校园轻集市</title><script src="https://cdn.tailwindcss.com"></script><script src="https://unpkg.com/vue@3/dist/vue.global.js"></script><link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css"><script src="https://unpkg.com/element-plus"></script><script src="https://unpkg.com/@element-plus/icons-vue"></script><link rel="stylesheet" href="assets/common.css"></head><body class="cm-body"><div id="app">
+<header class="cm-nav sticky top-0 z-50">
+  <div class="cm-shell h-16 flex items-center justify-between">
+    <a href="home.html" class="flex items-center gap-3">
+      <div class="cm-logo w-9 h-9 rounded-2xl flex items-center justify-center text-white font-black">集</div>
+      <div><div class="font-black text-lg leading-tight">校园轻集市</div><div class="text-xs text-slate-500 -mt-1">Campus Market</div></div>
+    </a>
+    <nav class="cm-nav-menu flex items-center gap-7 text-sm text-slate-600">
+      <a href="home.html" class="hover:text-teal-700">首页</a><a href="category.html" class="hover:text-teal-700">分类浏览</a><a href="publish.html" class="hover:text-teal-700">发布信息</a><a href="messages.html" class="hover:text-teal-700">消息</a><a href="profile.html" class="hover:text-teal-700">个人中心</a><a href="admin-dashboard.html" class="hover:text-teal-700">管理端</a>
+    </nav>
+    <div class="flex items-center gap-3"><a href="publish.html"><el-button type="primary" round>免费发布</el-button></a><a href="login.html"><el-avatar size="small" src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?auto=format&fit=crop&w=120&q=80"></el-avatar></a></div>
+  </div>
+</header><main class="cm-shell py-8"><section class="cm-card p-6"><div class="flex justify-between items-center mb-5"><h1 class="text-2xl font-black">我的收藏</h1><div class="flex gap-2"><el-input placeholder="搜索标题" style="width:220px"></el-input><el-button>搜索</el-button></div></div><table class="w-full text-sm cm-table"><thead><tr class="text-left text-slate-500 border-b"><th class="py-3">标题</th><th>分类</th><th>状态</th><th>地点</th><th>时间</th><th>操作</th></tr></thead><tbody class="divide-y"><tr><td class="py-4">周五晚上拼车去高铁站</td><td>拼单搭子</td><td><span class="cm-tag cm-tag-amber">还差1人</span></td><td>学校西门</td><td>今天</td><td><el-button size="small">查看</el-button><el-button size="small" plain>取消收藏</el-button></td></tr><tr><td class="py-4">MacBook 支架 + 蓝牙键盘</td><td>二手交易</td><td><span class="cm-tag cm-tag-green">¥99</span></td><td>一教大厅</td><td>昨天</td><td><el-button size="small">查看</el-button><el-button size="small" plain>取消收藏</el-button></td></tr></tbody></table><div class="flex justify-center mt-6"><el-pagination background layout="prev, pager, next" :total="30"></el-pagination></div></section></main></div>
+<script>
+  const { createApp } = Vue;
+  const app = createApp({});
+  app.use(ElementPlus);
+  app.mount('#app');
+</script></body></html>

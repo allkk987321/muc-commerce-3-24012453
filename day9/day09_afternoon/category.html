@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>集市浏览 - 校园轻集市</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="page-wrapper">
+  <nav class="navbar"><div class="navbar-inner">
+    <a href="home.html" class="navbar-brand"><div class="brand-icon">🏪</div>校园轻集市</a>
+    <div class="search-box"><input type="text" id="searchInput" placeholder="搜索你需要的校园信息..."><button onclick="filterItems()">🔍</button></div>
+    <div class="navbar-nav">
+      <a href="home.html" class="nav-link">🏠 首页</a>
+      <a href="category.html" class="nav-link active">📋 浏览集市</a>
+      <a href="publish.html" class="nav-link">✏️ 发布信息</a>
+      <div class="navbar-actions">
+        <a href="messages.html" class="btn btn-ghost btn-icon" title="消息">💬</a>
+        <a href="profile.html" class="btn btn-ghost btn-icon" title="个人中心">👤</a>
+      </div>
+    </div>
+  </div></nav>
+
+  <div class="main-content"><div class="container">
+    <div class="page-header">
+      <h1 class="page-title">📋 集市信息浏览</h1>
+      <p class="page-subtitle">浏览二手交易、失物招领、拼单搭子、跑腿委托等校园信息</p>
+    </div>
+
+    <div class="filter-bar">
+      <span class="filter-label">类型：</span>
+      <button class="btn btn-sm active" data-type="all" onclick="setFilter('type','all',this)">全部</button>
+      <button class="btn btn-sm" data-type="secondhand" onclick="setFilter('type','secondhand',this)">🛒 二手交易</button>
+      <button class="btn btn-sm" data-type="lostfound" onclick="setFilter('type','lostfound',this)">🔍 失物招领</button>
+      <button class="btn btn-sm" data-type="group" onclick="setFilter('type','group',this)">🤝 拼单搭子</button>
+      <button class="btn btn-sm" data-type="errand" onclick="setFilter('type','errand',this)">🏃 跑腿委托</button>
+      <span class="filter-label" style="margin-left:16px;">校区：</span>
+      <button class="btn btn-sm active" data-campus="all" onclick="setFilter('campus','all',this)">全部</button>
+      <button class="btn btn-sm" data-campus="南校区" onclick="setFilter('campus','南校区',this)">南校区</button>
+      <button class="btn btn-sm" data-campus="北校区" onclick="setFilter('campus','北校区',this)">北校区</button>
+      <button class="btn btn-sm" data-campus="东校区" onclick="setFilter('campus','东校区',this)">东校区</button>
+      <button class="btn btn-sm" data-campus="西校区" onclick="setFilter('campus','西校区',this)">西校区</button>
+      <span class="filter-label" style="margin-left:16px;">状态：</span>
+      <button class="btn btn-sm active" data-status="all" onclick="setFilter('status','all',this)">全部</button>
+      <button class="btn btn-sm" data-status="active" onclick="setFilter('status','active',this)">进行中</button>
+      <button class="btn btn-sm" data-status="completed" onclick="setFilter('status','completed',this)">已完成</button>
+    </div>
+
+    <div id="items-container" style="display:flex;flex-direction:column;gap:12px;"></div>
+    <div id="empty-state" class="empty-state hidden">
+      <div class="empty-icon">📭</div>
+      <div class="empty-text">没有找到匹配的信息</div>
+      <div class="empty-hint">试试调整筛选条件或搜索关键词</div>
+    </div>
+  </div></div>
+</div>
+
+<script src="js/data.js"></script>
+<script>
+let filters = { type: 'all', campus: 'all', status: 'all', keyword: '' };
+const params = new URLSearchParams(location.search);
+if (params.get('type')) filters.type = params.get('type');
+
+function setFilter(key, val, btn) {
+  filters[key] = val;
+  document.querySelectorAll(`[data-${key}]`).forEach(b => b.classList.remove('btn-primary','active'));
+  document.querySelectorAll(`[data-${key}]`).forEach(b => b.classList.add('btn-sm'));
+  btn.classList.add('btn-primary'); btn.classList.remove('btn-sm');
+  filterItems();
+}
+
+function filterItems() {
+  filters.keyword = document.getElementById('searchInput').value.toLowerCase();
+  let result = items;
+  if (filters.type !== 'all') result = result.filter(i => i.type === filters.type);
+  if (filters.campus !== 'all') result = result.filter(i => i.campus === filters.campus);
+  if (filters.status !== 'all') result = result.filter(i => i.status === filters.status);
+  if (filters.keyword) result = result.filter(i => i.title.toLowerCase().includes(filters.keyword) || i.description.toLowerCase().includes(filters.keyword));
+  const container = document.getElementById('items-container');
+  const empty = document.getElementById('empty-state');
+  if (result.length === 0) { container.innerHTML = ''; empty.classList.remove('hidden'); }
+  else { empty.classList.add('hidden'); container.innerHTML = result.map(renderItemCard).join(''); }
+}
+
+function renderItemCard(item) {
+  const typeLabels = { secondhand:'🛒 二手', lostfound:'🔍 失物招领', group:'🤝 拼单', errand:'🏃 跑腿' };
+  const typeClasses = { secondhand:'type-secondhand', lostfound:'type-lostfound', group:'type-group', errand:'type-errand' };
+  const detailPages = { secondhand:'item-detail.html', lostfound:'lost-detail.html', group:'group-detail.html', errand:'task-detail.html' };
+  let extra = '';
+  if (item.type === 'secondhand') extra = `<span class="item-card-price">¥${item.price}</span>`;
+  else if (item.type === 'group') extra = `<span style="font-weight:600;color:var(--primary);">👥 ${item.currentCount}/${item.targetCount}人</span>`;
+  else if (item.type === 'errand') extra = `<span style="font-weight:600;color:var(--secondary);">💰 ¥${item.reward}</span>`;
+  return `<a href="${detailPages[item.type]}?id=${item.id}" class="item-card">
+    <div class="item-card-image">${typeLabels[item.type].split(' ')[0]}</div>
+    <div class="item-card-body">
+      <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+        <span class="type-tag ${typeClasses[item.type]}">${typeLabels[item.type]}</span>
+        <span class="tag tag-gray">${getStatusLabel(item.status)}</span>
+      </div>
+      <div class="item-card-title">${item.title}</div>
+      <div class="item-card-desc">${item.description}</div></div>
+      <div class="item-card-meta"><span>📍 ${item.campus} · ${item.location}</span><span>👀 ${item.viewCount}</span><span>⭐ ${item.favoriteCount}</span><span>🕐 ${formatTime(item.createdAt)}</span></div>
+    </div>
+    ${extra ? `<div style="display:flex;align-items:center;flex-shrink:0;">${extra}</div>` : ''}
+  </a>`;
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', () => {
+  if (filters.type !== 'all') {
+    const typeBtn = document.querySelector(`[data-type="${filters.type}"]`);
+    if (typeBtn) { typeBtn.classList.add('btn-primary'); typeBtn.classList.remove('btn-sm'); }
+    document.querySelector('[data-type="all"]').classList.remove('active');
+  }
+  filterItems();
+});
+</script>
+</body>
+</html>
